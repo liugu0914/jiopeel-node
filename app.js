@@ -1,41 +1,34 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+// 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:
+const Koa = require('koa');
 
-var indexRouter = require('./src/sys/index');
-var usersRouter = require('./src/sys/users');
+const ScanRouter = require('./src/core/ScanRouter');
 
-var app = express();
+//解析原始request请求
+const bodyParser = require('koa-bodyparser');
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'hbs');
+// 创建一个Koa对象表示web app本身:
+const app = new Koa();
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'static')));
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
-
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(async (ctx, next) => {
+    console.log('koa app 1'); // 打印URL
+    console.log(`${ctx.request.method} ${ctx.request.url}`); // 打印URL
+    await next(); // 调用下一个middleware
+    console.log('koa app 1 end'); // 打印URL
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+app.use(async (ctx, next) => {
+    console.log('koa app 2'); // 打印URL
+    const start = new Date().getTime(); // 当前时间
+    await next(); // 调用下一个middleware
+    const ms = new Date().getTime() - start; // 耗费时间
+    console.log(`Time: ${ms}ms`); // 打印耗费时间
+    console.log('koa app 2 end'); // 打印URL
 });
 
-module.exports = app;
+//要在router.routes()之前
+app.use(bodyParser());
+app.use(ScanRouter());
+// 在端口3000监听:
+app.listen(3000);
+console.log('app started at port 3000...');
+console.log('http://localhost:3000');

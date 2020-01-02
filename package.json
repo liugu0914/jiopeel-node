@@ -1,19 +1,22 @@
 {
   "name": "jiopeel-node",
-  "version": "0.0.0",
+  "description": "jiopeel front building",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node app.js"
+  },
+  "author": "lyc",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liugu0914/jiopeel-node.git"
   },
   "dependencies": {
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "hbs": "~4.0.4",
-    "http-errors": "~1.6.3",
-    "morgan": "~1.9.1",
-    "request": "^2.88.0"
+    "babel-preset-env": "^1.7.0",
+    "babel-register": "^6.26.0",
+    "koa": "^2.0.0",
+    "koa-bodyparser": "^3.2.0",
+    "koa-router": "^7.0.0"
   }
 }
-
-
