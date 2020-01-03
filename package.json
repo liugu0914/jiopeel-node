@@ -13,9 +13,11 @@
     "url": "https://github.com/liugu0914/jiopeel-node.git"
   },
   "dependencies": {
+    "art-template": "^4.13.2",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "koa": "^2.11.0",
+    "koa-art-template": "^1.1.1",
     "koa-bodyparser": "^4.2.1",
     "koa-log4": "^2.3.2",
     "koa-router": "^7.4.0",

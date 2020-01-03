@@ -1,8 +1,9 @@
 // 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:
 const Koa = require('koa');
+const path=require('path');
 const controll = require('./config/controll');
 const { lg, logger, accessLogger } = require('./config/log4j');
-
+const render =  require('koa-art-template');
 //解析原始request请求
 const bodyParser = require('koa-bodyparser');
 
@@ -41,6 +42,12 @@ app.on("error", (err, ctx) => {//捕获异常记录错误日志
     logger.error(err);
 });
 
+//配置 koa-art-template模板引擎
+render(app, {
+    root: path.join(__dirname, 'views'),   // 视图的位置
+    extname: '.html',  // 后缀名
+    debug: process.env.NODE_ENV !== 'production'  //是否开启调试模式
+});
 //要在router.routes()之前
 app.use(bodyParser());
 app.use(controll);
