@@ -22,8 +22,7 @@ var Controll = {
             lg.info(`process controller: ${f}`);
             let route = require(f);
 
-            //默认/为一级路由
-            router.use('/',route.routes());
+            router.use(route.routes());
             router.use(route.allowedMethods());
         }
     },

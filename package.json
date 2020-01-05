@@ -4,7 +4,10 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "node app.js"
+    "start": "nodemon node ./bin/www",
+    "dev": "./node_modules/.bin/nodemon ./bin/www",
+    "prd": "pm2 start bin/www",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lyc",
   "license": "Apache-2.0",
@@ -22,6 +25,12 @@
     "koa-log4": "^2.3.2",
     "koa-router": "^7.4.0",
     "koa-static": "^5.0.0",
-    "moment": "^2.24.0"
+    "koa2-request": "^1.0.4",
+    "moment": "^2.24.0",
+    "request": "^2.88.0",
+    "request-promise": "^4.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

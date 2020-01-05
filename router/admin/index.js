@@ -1,6 +1,6 @@
 const router = require('koa-router')();
 
-router.post('/signin', async (ctx, next) => {
+router.get('/signin', async (ctx, next) => {
     var name = ctx.request.body.name || '',
         password = ctx.request.body.password || '';
     console.log(`signin with name: ${name}, password: ${password}`);
