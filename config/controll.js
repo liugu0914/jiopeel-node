@@ -1,21 +1,21 @@
 const fs = require('fs');
 const path = require('path');
-const { lg, logger, accessLogger } = require('./log4j');
+const { lg } = require('./log4j');
 //router 路径
-const RouterDir = path.join(__dirname, '../router');
+const RouterDir = path.join(AppRoot, '/router');
 /**
  * 扫描router目录下的所有路由
  */
 var Controll = {
-    init: function (dir) {
-        lg.info("开始扫描路由文件");
+    init: function(dir) {
         let controllers_dir = dir || RouterDir,
             router = require('koa-router')();
+        lg.info(`开始扫描 ${controllers_dir} 下路由文件`);
         Controll.addControllers(router, controllers_dir);
         lg.info("扫描路由文件完毕");
         return router.routes();
     },
-    addControllers: function (router, dir) {
+    addControllers: function(router, dir) {
         let js_files = Controll.getFiles(dir);
 
         for (let f of js_files) {
@@ -31,9 +31,9 @@ var Controll = {
         this.handleFile(dir, jsonFiles);
         return jsonFiles;
     },
-    handleFile: function (dir, jsonFiles) {
+    handleFile: function(dir, jsonFiles) {
         let files = fs.readdirSync(dir);
-        files.forEach(function (item, index) {
+        files.forEach(function(item, index) {
             let fPath = path.join(dir, item);
             let stat = fs.statSync(fPath);
             if (stat.isDirectory())

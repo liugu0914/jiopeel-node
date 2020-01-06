@@ -1,19 +1,20 @@
-// 导入koa，和koa 1.x不同，在koa2中，我们导入的是一个class，因此用大写的Koa表示:
 const Koa = require('koa');
 const path = require('path');
 const { lg, logger, accessLogger } = require('./config/log4j');
+//http://aui.github.io/art-template/zh-cn/docs/syntax.html art-template语法
 const render = require('koa-art-template');
 const static = require('koa-static'); //静态资源服务插件
+
 //解析原始request请求
 const bodyParser = require('koa-bodyparser');
 // 创建一个Koa对象表示web app本身:
 const app = new Koa();
 
 // 根目录设置全局变量
-global.appRoot = path.resolve(__dirname);
-global.WebUrl="http://localhost:8088";
-lg.info(`Using WebUrl as API url： : ${WebUrl}`);
-lg.info(`Using appRoot as root dir：${appRoot}`);
+global.AppRoot = path.resolve(__dirname);
+global.API_core="http://localhost:8088";
+lg.info(`Using API_core as API url：${API_core}`);
+lg.info(`Using AppRoot as root dir：${AppRoot}`);
 
 
 //日志记录
@@ -55,10 +56,10 @@ render(app, {
     extname: '.html', // 后缀名
     debug: process.env.NODE_ENV !== 'production' //是否开启调试模式
 });
-// 配置静态资源
-app.use(static(
-    path.join(__dirname, './static')
-));
+// 配置静态资源，并设置缓存
+app.use(static( path.join(__dirname, 'static'),{
+    maxAge: 30 * 24 * 60 * 60 * 1000
+  }));
 //要在router.routes()之前
 app.use(bodyParser());
 app.use(require('./config/controll'));
