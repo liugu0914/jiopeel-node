@@ -13,12 +13,12 @@ const redirect_uri = "http://localhost:3000/oauth/redirect";
 const Oauth_url = "http://localhost:8088/oauth/access_token";
 
 /**后台登录页面 */
-router.get('/', async(ctx, next) => {
-    let data = {
-        client_id: client_id,
-        redirect_uri: redirect_uri
-    }
-    await ctx.render('admin/login', data);
+router.get('/', async (ctx, next) => {
+   let data = {
+      client_id: client_id,
+      redirect_uri: redirect_uri
+   }
+   await ctx.render('admin/login', data);
 });
 
 /**
@@ -26,21 +26,21 @@ router.get('/', async(ctx, next) => {
  * @author :lyc
  * @date   :2020-01-05 23:57:00
  */
-router.post('/login', async(ctx, next) => {
-    let data = ctx.request.body;
-    lg.info(`请求参数 : ${JSON.stringify(data)}`);
-    //使用await使异步变同步
-    await rp.post({
-        uri: API_core + '/login',
-        form: data
-    }).then((body) => {
-        lg.info("接口响应数据 :" + body);
-        ctx.body = body; //返回接口数据
-    }).catch((err) => {
-        lg.error(`error on : ${err}`);
-    }).finally(() => {
-        ctx.body = ctx.body ? ctx.body : "";
-    });
+router.post('/login', async (ctx, next) => {
+   let data = ctx.request.body;
+   lg.info(`请求参数 : ${JSON.stringify(data)}`);
+   //使用await使异步变同步
+   await rp.post({
+      uri: API_core + '/login',
+      form: data
+   }).then((body) => {
+      lg.info("接口响应数据 :" + body);
+      ctx.body = body; //返回接口数据
+   }).catch((err) => {
+      lg.error(`error on : ${err}`);
+   }).finally(() => {
+      ctx.body = ctx.body ? ctx.body : "";
+   });
 });
 
 
@@ -52,23 +52,23 @@ router.post('/login', async(ctx, next) => {
  * @author :lyc
  * @date   :2020-01-05 23:57:00
  */
-router.get('/oauth/redirect', async(ctx, next) => {
-    let data = ctx.query;
-    lg.info(`请求参数 : ${JSON.stringify(data)}`);
-    data.client_id=client_id;
-    data.client_secret=client_secret;
-    //使用await使异步变同步
-    await rp.post({
-        uri: Oauth_url,
-        form: data
-    }).then((body) => {
-        lg.info("接口响应数据 :" + body);
-        ctx.body = body; //返回接口数据
-    }).catch((err) => {
-        lg.error(`error on : ${err}`);
-    }).finally(() => {
-        ctx.body = ctx.body ? ctx.body : "";
-    });
+router.get('/oauth/redirect', async (ctx, next) => {
+   let data = ctx.query;
+   lg.info(`请求参数 : ${JSON.stringify(data)}`);
+   data.client_id = client_id;
+   data.client_secret = client_secret;
+   //使用await使异步变同步
+   await rp.post({
+      uri: Oauth_url,
+      form: data
+   }).then((body) => {
+      lg.info("接口响应数据 :" + body);
+      ctx.body = body; //返回接口数据
+   }).catch((err) => {
+      lg.error(`error on : ${err}`);
+   }).finally(() => {
+      ctx.body = ctx.body ? ctx.body : "";
+   });
 });
 
 
@@ -77,21 +77,21 @@ router.get('/oauth/redirect', async(ctx, next) => {
  * @author :lyc
  * @date   :2020-1-6 16:00:28
  */
-router.post('/register', async(ctx, next) => {
-    let data = ctx.request.body;
-    lg.info(`请求参数 : ${JSON.stringify(data)}`);
-    //使用await使异步变同步
-    await rp.post({
-        uri: API_core + '/register',
-        form: data
-    }).then((body) => {
-        lg.info("接口响应数据 :" + body);
-        ctx.body = body; //返回接口数据
-    }).catch((err) => {
-        lg.error(`error on : ${err}`);
-    }).finally(() => {
-        ctx.body = ctx.body ? ctx.body : "";
-    });
+router.post('/register', async (ctx, next) => {
+   let data = ctx.request.body;
+   lg.info(`请求参数 : ${JSON.stringify(data)}`);
+   //使用await使异步变同步
+   await rp.post({
+      uri: API_core + '/register',
+      form: data
+   }).then((body) => {
+      lg.info("接口响应数据 :" + body);
+      ctx.body = body; //返回接口数据
+   }).catch((err) => {
+      lg.error(`error on : ${err}`);
+   }).finally(() => {
+      ctx.body = ctx.body ? ctx.body : "";
+   });
 });
 
 
@@ -100,21 +100,21 @@ router.post('/register', async(ctx, next) => {
  * @author :lyc
  * @date   :2020-1-6 16:00:28
  */
-router.get('/loginout', async(ctx, next) => {
-    let data = ctx.query;
-    lg.info(`请求参数 : ${JSON.stringify(data)}`);
-    //使用await使异步变同步
-    await rp.get({
-        uri: API_core + '/loginout',
-        form: data
-    }).then((body) => {
-        lg.info("接口响应数据 :" + body);
-        ctx.body = body; //返回接口数据
-    }).catch((err) => {
-        lg.error(`error on : ${err}`);
-    }).finally(() => {
-        ctx.body = ctx.body ? ctx.body : "";
-    });
+router.get('/loginout', async (ctx, next) => {
+   let data = ctx.query;
+   lg.info(`请求参数 : ${JSON.stringify(data)}`);
+   //使用await使异步变同步
+   await rp.get({
+      uri: API_core + '/loginout',
+      form: data
+   }).then((body) => {
+      lg.info("接口响应数据 :" + body);
+      ctx.body = body; //返回接口数据
+   }).catch((err) => {
+      lg.error(`error on : ${err}`);
+   }).finally(() => {
+      ctx.body = ctx.body ? ctx.body : "";
+   });
 });
 
 module.exports = router;

@@ -12,7 +12,7 @@ const app = new Koa();
 
 // 根目录设置全局变量
 global.AppRoot = path.resolve(__dirname);
-global.API_core="http://localhost:8088";
+global.API_core = "http://localhost:8088";
 lg.info(`Using API_core as API url：${API_core}`);
 lg.info(`Using AppRoot as root dir：${AppRoot}`);
 
@@ -23,7 +23,7 @@ app.use(accessLogger());
 /**
  * 状态处理
  */
-app.use(async(ctx, next) => {
+app.use(async (ctx, next) => {
     const start = new Date().getTime(); // 当前时间
     await next(); // 调用下一个middleware
     const ms = new Date().getTime() - start; // 耗费时间
@@ -57,9 +57,9 @@ render(app, {
     debug: process.env.NODE_ENV !== 'production' //是否开启调试模式
 });
 // 配置静态资源，并设置缓存
-app.use(static( path.join(__dirname, 'static'),{
+app.use(static(path.join(__dirname, 'static'), {
     maxAge: 30 * 24 * 60 * 60 * 1000
-  }));
+}));
 //要在router.routes()之前
 app.use(bodyParser());
 app.use(require('./config/controll'));
