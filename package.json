@@ -27,7 +27,7 @@
     "koa-static": "^5.0.0",
     "koa-static-cache": "^5.1.2",
     "koa2-request": "^1.0.4",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "request": "^2.88.0",
     "request-promise": "^4.2.5"
   },
